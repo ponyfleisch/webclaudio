@@ -13,27 +13,26 @@ window.addEventListener('load', function() {
             {octave: 0, detune: 17},
             {octave: 0, detune: -13},
             {octave: 0, detune: 6},
-            {octave: 0, detune: -9},
-            {octave: 0, detune: 23},
-            {octave: 1, detune: -14},
-            {octave: -1, detune: 14},
-            {octave: -1, detune: -15},
-            {octave: -1, detune: -8},
-            {octave: -1, detune: 10},
+            {octave: 1, detune: -9},
+            {octave: 1, detune: 17},
+            {octave: 2, detune: -14},
+            {octave: 2, detune: 10},
         ]
     };
 
-    var delay = context.createSuperDelay(1, 0.5, 0.0);
-    var reverb = context.createReverb('h.wav', 1);
-    delay.connect(reverb.input);
-    reverb.connect(context.destination);
+    var delay = context.createSuperDelay(0.7, 0.3, 0.3);
+    var reverb = context.createReverb('h.wav', 0.8);
+    var flarbarbarb = context.createFlarbarbarb(6, 800, 600, 0.5);
+    delay.connect(context.destination);
+    flarbarbarb.connect(delay.input);
+    reverb.connect(flarbarbarb.input);
 
     function note2freq(note) {
         return Math.pow(2, (note - 69) / 12) * 440;
     }
 
     function noteOn(note) {
-        var voice = new StringVoice(note2freq(note), settings, context, delay.input);
+        var voice = new StringVoice(note2freq(note), settings, context, reverb.input);
         voice.start(0);
         voices[note] = voice;
     }

@@ -9,7 +9,7 @@ var StringVoice = (function() {
         var filter = this.context.createBiquadFilter();
         filter.type = 'lowpass';
         filter.frequency.setValueAtTime(frequency, now);
-        filter.frequency.exponentialRampToValueAtTime(frequency*8, now+3);
+        filter.frequency.exponentialRampToValueAtTime(frequency*8, now+1);
         filter.Q.value = 10;
         filter.connect(output);
         this.filter = filter;
