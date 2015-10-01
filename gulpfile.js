@@ -48,7 +48,7 @@ gulp.task('scss', ['clean'], function(){
 
 gulp.task('all', ['scripts', 'html', 'scss', 'data']);
 
-gulp.task('watch', function(){
+gulp.task('watch', ['all'], function(){
     gulp.watch(paths.scripts, ['scripts']);
     gulp.watch(paths.html, ['html']);
     gulp.watch(paths.scss, ['scss']);

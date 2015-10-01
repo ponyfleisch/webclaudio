@@ -34,11 +34,19 @@ window.addEventListener('load', function() {
     function noteOn(note) {
         var voice = new StringVoice(note2freq(note), settings, context, reverb.input);
         voice.start(0);
-        voices[note] = voice;
+        if(voices[note] === undefined){
+            voices[note] = [];
+        }
+        voices[note].push(voice);
     }
 
     function noteOff(note) {
-        voices[note].stop(1);
+        if(voices[note] !== undefined){
+            voices[note].forEach(function(v, i){
+                v.stop(1);
+                delete voices[note][i];
+            });
+        }
     }
 
     keyboard.down(function (note) {

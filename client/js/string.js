@@ -39,15 +39,18 @@ var StringVoice = (function() {
 
     StringVoice.prototype.stop = function(release) {
         var now = this.context.currentTime;
+        // console.log(this.amp.gain);
         this.amp.gain.cancelScheduledValues(now);
-        this.amp.gain.setValueAtTime(this.amp.gain.value, now);
+        // this.amp.gain.setValueAtTime(this.amp.gain.value, now);
         this.amp.gain.linearRampToValueAtTime(0.00001, now+release);
-        var that = this;
         setTimeout(function(){
-            that.oscillators.forEach(function(osc) {
+            this.oscillators.forEach(function(osc, index) {
                 osc.stop();
-            });
-        }, release*1000);
+            }.bind(this));
+            this.oscillators = [];
+            this.amp = null;
+            this.filter = null;
+        }.bind(this), release*1000);
     };
 
     return StringVoice;
