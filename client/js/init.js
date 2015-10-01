@@ -50,11 +50,11 @@ window.addEventListener('load', function() {
     }
 
     keyboard.down(function (note) {
-        noteOn(note.keyCode)
+        noteOn(note.note-12);
     });
 
     keyboard.up(function (note) {
-        noteOff(note.keyCode)
+        noteOff(note.note-12);
     });
 
     function midiMessage(ev) {
@@ -78,7 +78,6 @@ window.addEventListener('load', function() {
     }
 
     navigator.requestMIDIAccess().then(function (midi) {
-        //console.log(midi);
         midi.inputs.forEach(function (item) {
             item.onmidimessage = midiMessage;
         });
